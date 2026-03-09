@@ -51,7 +51,7 @@ jobs:
 
       - name: Generate artifact
         run: |
-          tar -Jcvf ${{ env.ARTIFACT_NAME }} ./cli
+          tar -Jcvf ${{ env.ARTIFACT_NAME }} ./cli ./LICENSE
           sha256sum ${{ env.ARTIFACT_NAME }} > ${{ env.CHECKSUM_NAME }}
 
       - name: Upload release asset
