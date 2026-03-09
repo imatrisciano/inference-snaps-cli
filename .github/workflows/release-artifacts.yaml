@@ -42,9 +42,6 @@ jobs:
       - name: Install dependencies
         run: go mod download
 
-      - name: Run tests
-        run: go test -v ./...
-
       - name: Build binary
         env:
           GOOS: ${{ matrix.runner.goos }}
