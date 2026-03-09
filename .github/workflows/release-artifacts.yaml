@@ -24,7 +24,6 @@ jobs:
 
     env:
       ARTIFACT_NAME: "inference-snaps-cli-${{ matrix.runner.name }}.tar.xz"
-      CHECKSUM_NAME: "inference-snaps-cli-${{ matrix.runner.name }}.tar.xz.sha256"
 
     runs-on: ${{ matrix.runner.runs-on }}
     steps:
@@ -52,12 +51,10 @@ jobs:
       - name: Generate artifact
         run: |
           tar -Jcvf ${{ env.ARTIFACT_NAME }} ./cli ./LICENSE
-          sha256sum ${{ env.ARTIFACT_NAME }} > ${{ env.CHECKSUM_NAME }}
 
       - name: Upload release asset
         run: |
           # --clobber overwrite existing assets of the same name
           gh release upload ${{ github.event.release.tag_name }} ${{ env.ARTIFACT_NAME }} --clobber
-          gh release upload ${{ github.event.release.tag_name }} ${{ env.CHECKSUM_NAME }} --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
